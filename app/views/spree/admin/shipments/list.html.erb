@@ -1,0 +1,47 @@
+<% content_for :page_title do %>
+  <%= t(:order) %> #<%= @order.number %> <i class="icon-arrow-right"></i> <%= t(:shipments) %> <i class="icon-arrow-right"></i> #<%= @shipment.number%> (<%= t(@shipment.state.to_sym, :scope => :shipment_states, :default => @shipment.state.to_s.humanize) %>)
+<% end %>
+<% content_for :page_actions do %>
+  <li><%= button_link_to t(:back_to_order), admin_order_url(@order.number), :icon => 'icon-arrow-left' %></li>
+  <li><%= button_link_to t(:back_to_shipment), edit_admin_order_shipment_url(@order.number, @shipment.number), :icon => 'icon-arrow-left' %></li>
+<% end %>
+
+<div id="picking_list">
+  <h3><%= t(:shipping_list) %></h3>
+  <div id="order-info" data-hook class="row">
+    <fieldset class="alpha eight columns no-border-bottom">
+      <legend align="center"><%= t(:ship_address) %></legend>
+      <div class="align-center">
+        <div data-hook="address"><%= @order.ship_address.to_s %></div>
+      </div>
+    </fieldset>
+    <fieldset class="alpha eight columns no-border-bottom">
+      <legend align="center"><%= t(:completed_at) %></legend>
+      <div class="align-center">
+        <div data-hook="date"><%= @order.completed_at %></div>
+      </div>
+    </fieldset>
+  </div>
+  <table class="index" data-hook="order_details">
+    <thead id="line-items" data-hook>
+      <tr data-hook="order_details_line_items_headers">
+        <th class="sku"><%= t(:sku) %></th>
+        <th class="description"><%= t(:item_description) %></th>
+        <th class="qty"><%= t(:qty) %></th>
+        <th class="location"><%= t(:location) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @shipment.inventory_units.group_by(&:variant).each do |group| %>
+        <% variant          = group[0] %>
+        <% inventory_units  = group[1] %>
+        <tr data-hook="order_details_line_item_row" class="<%= cycle('odd', 'even')%>">
+          <td><%= variant.sku %></td>
+          <td width="300"><%= variant.product.name %> <%= "(" + variant_options(variant) + ")" unless variant.option_values.empty? %></td>
+          <td class="qty"><%= inventory_units.count %></td>
+          <td class="location"><%= variant.location %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

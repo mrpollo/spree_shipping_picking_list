@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_shipping_picking_list'
-  s.version     = '2.0.3'
+  s.version     = '1.3.3'
   s.summary     = 'Create a picking list for shipping departments'
   s.description = 'Prints an invoice like list of the contents of the order in a way it makes more sense for shipping departments'
   s.required_ruby_version = '>= 1.9.3'
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 2.0.3'
+  s.add_dependency 'spree_core', '~> 1.3'
 
   s.add_development_dependency 'capybara', '~> 2.1'
   s.add_development_dependency 'coffee-rails'
