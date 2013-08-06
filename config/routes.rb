@@ -3,10 +3,8 @@ Spree::Core::Engine.routes.draw do
   Spree::Core::Engine.routes.draw do
     namespace :admin do
       resources :orders do
-        resources :shipments do
-          get :list
-          match "/list" => "shipments#list", :as =>"shipments_picking_list"
-        end
+        get :list
+        match "/list/:shipment_id" => "orders#list", :as =>"shipments_picking_list"
       end
     end
   end
