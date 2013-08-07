@@ -3,7 +3,6 @@
 <% end %>
 <% content_for :page_actions do %>
   <li><%= button_link_to t(:back_to_order), admin_order_url(@order.number), :icon => 'icon-arrow-left' %></li>
-  <li><%= button_link_to t(:back_to_shipment), edit_admin_order_shipment_url(@order.number, @shipment.number), :icon => 'icon-arrow-left' %></li>
 <% end %>
 
 <div id="picking_list">
