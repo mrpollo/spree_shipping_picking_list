@@ -31,15 +31,15 @@
       </tr>
     </thead>
     <tbody>
-      <% parents = @shipment.line_item_manifest.reject{|l| l.line_item.parent_id.present? } %>
+      <% parents = @shipment.line_items.reject{|l| l.parent_id.present?} %>
       <% parents.each_with_index do |item, index| %>
         <tr data-hook="order_details_line_item_row" class="<%= cycle('odd', 'even')%>">
           <td width="300"><%= item.variant.product.name %> <%= "(" + variant_options(item.variant) + ")" unless item.variant.option_values.empty? %></td>
           <td><%= item.variant.sku %></td>
-          <td class="qty"><%= item.line_item.quantity %></td>
+          <td class="qty"><%= item.quantity %></td>
           <td class="location"><%= item.variant.location %></td>
         </tr>
-        <% item.line_item.child_items.each_with_index do |c, i| %>
+        <% item.child_items.each_with_index do |c, i| %>
           <tr data-hook="order_details_line_item_row" class="<%= cycle('odd', 'even')%>">
             <td width="300">---<%= c.variant.product.name %> <%= "(" + variant_options(c.variant) + ")" unless c.variant.option_values.empty? %></td>
             <td><%= c.variant.sku %></td>
